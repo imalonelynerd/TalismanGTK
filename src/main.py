@@ -35,6 +35,9 @@ class TalismanGtkApplication(Adw.Application):
                          flags=Gio.ApplicationFlags.DEFAULT_FLAGS)
         self.create_action('quit', lambda *_: self.quit(), ['<primary>q'])
         self.create_action('about', self.on_about_action)
+        self.create_action('save_pr', self.test, ['<primary>s'])
+        self.create_action('load_pr', self.test, ['<primary>l'])
+        self.create_action('reset', self.test, ['<primary>r'])
         #self.create_action('preferences', self.on_preferences_action)
 
     def do_activate(self):
@@ -80,6 +83,9 @@ class TalismanGtkApplication(Adw.Application):
         self.add_action(action)
         if shortcuts:
             self.set_accels_for_action(f"app.{name}", shortcuts)
+
+    def test(self, widget, _):
+        print("uwu")
 
 
 def main(version):

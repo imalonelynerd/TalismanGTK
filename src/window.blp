@@ -2,24 +2,24 @@ using Gtk 4.0;
 using Adw 1;
 
 template $TalismanGtkWindow : Adw.ApplicationWindow {
-  default-width: 700;
-  default-height: 700;
+  default-width: 600;
+  default-height: 600;
   title: "Talisman";
+  styles ["devel"]
 
   Box {
     orientation: vertical;
 
     HeaderBar header_bar {
-      [start]
-      Button{
-        label: _("Load...");
-      }
       [end]
       MenuButton {
         icon-name: "open-menu-symbolic";
         menu-model: primary_menu;
       }
     }
+
+
+  ScrolledWindow {
 
     Box mainbox {
       orientation: vertical;
@@ -36,11 +36,11 @@ template $TalismanGtkWindow : Adw.ApplicationWindow {
         orientation: vertical;
         hexpand: true;
         Image icon{
-        name: "logo";
-        icon-name: "fr.imalonelynerd.Talisman";
-        pixel-size: 128;
-        margin-bottom: 16;
-      }
+          name: "logo";
+          icon-name: "fr.imalonelynerd.Talisman";
+          pixel-size: 128;
+          margin-bottom: 16;
+        }
 
         Label label {
           label: "Let's prepare the duel...";
@@ -51,44 +51,65 @@ template $TalismanGtkWindow : Adw.ApplicationWindow {
         }
       }
 
-      Box nickbox {
-        orientation: vertical;
 
-        Label l1 {
-        label: "Players's names";
-        opacity: 0.5;
-        margin-bottom: 8;
+        ListBox {
+        styles ["boxed-list"]
+            Adw.EntryRow p1nick{
+              hexpand: true;
+              title: "Player 1 nickname";
+              show-apply-button: true;
+            }
+
+
+
+            Adw.EntryRow p2nick{
+              hexpand: true;
+              title: "Player 2 nickname";
+              show-apply-button: true;
+            }
+
         }
 
-        Box {
-          styles ["linked"]
-          halign: fill;
-          Entry p1nick{
-            hexpand: true;
-            placeholder-text: "Player 1";
+        ListBox {
+          styles ["boxed-list"]
+            Adw.SpinRow lp {
+            title: "Life Points (LP)";
+              halign: fill;
+              wrap: false;
+              adjustment: Adjustment {
+                lower: 100;
+                upper: 100000;
+                step-increment: 100;
+                page-increment: 1000;
+                value: 8000;
+              };
+            }
+
+        }
+
+        ListBox {
+            styles ["boxed-list"]
+            Adw.ComboRow drop_down {
+            title: "Timer type";
+            model: StringList {
+              strings ["Chronometer", "Timer", "Nexus-like"]
+            };
           }
-          Entry p2nick{
-            hexpand: true;
-            placeholder-text: "Player 2";
-          }
-        }
-      }
-
-      Box lpbox {
-        orientation: vertical;
-
-        Label l2 {
-        label: "Life Points (LP)";
-        margin-bottom: 8;
-        opacity: 0.5;
+        Adw.SpinRow cnt {
+          title: _("Countdown");
+          hexpand: true;
+          adjustment: Adjustment {
+            lower: 10;
+            upper: 100000;
+            step-increment: 1;
+            page-increment: 60;
+            value: 120;
+          };
         }
 
-        SpinButton lp {
-          halign: fill;
-          orientation: horizontal;
-          wrap: false;
-          value: 8000;
-          climb-rate: 1000;
+        Adw.SpinRow playt {
+          title: _("Individual time");
+          hexpand: true;
           adjustment: Adjustment {
             lower: 100;
             upper: 100000;
@@ -97,109 +118,20 @@ template $TalismanGtkWindow : Adw.ApplicationWindow {
             value: 8000;
           };
         }
-      }
 
-      Box timerbox {
-        orientation: vertical;
+        Adw.SpinRow addt {
+        title: _("Added time");
         hexpand: true;
-
-        Label l3 {
-        label: "Timer type";
-        margin-bottom: 8;
-        hexpand: true;
-        opacity: 0.5;
-        }
-
-        DropDown drop_down {
-          enable-search: false;
-          model: StringList {
-            strings ["Chronometer", "Timer", "Nexus-like"]
+        adjustment: Adjustment {
+          lower: 100;
+          upper: 100000;
+          step-increment: 100;
+          page-increment: 1000;
+          value: 8000;
           };
         }
-
-        /*Box extra {
-          margin-top: 24;
-          orientation: vertical;
-          spacing: 24;
-
-          Box timerc {
-            orientation: vertical;
-            hexpand: true;
-
-            Label l41 {
-              label: "Countdown";
-              margin-bottom: 8;
-              hexpand: true;
-              opacity: 0.5;
-            }
-
-            SpinButton cnt {
-              halign: fill;
-              orientation: horizontal;
-              wrap: false;
-              value: 120;
-              climb-rate: 1;
-              hexpand: true;
-              adjustment: Adjustment {
-                lower: 10;
-                upper: 100000;
-                step-increment: 1;
-                page-increment: 60;
-                value: 120;
-              };
-            }
-          }
-
-          Box nexusc {
-            orientation: vertical;
-            hexpand: true;
-
-            Label l42 {
-              label: "Individual time | Added time";
-              margin-bottom: 8;
-              hexpand: true;
-              opacity: 0.5;
-            }
-
-            Box {
-              orientation: horizontal;
-              halign: fill;
-              hexpand: true;
-              spacing: 8;
-
-              SpinButton playt {
-                orientation: horizontal;
-                wrap: false;
-                value: 8000;
-                climb-rate: 1000;
-                hexpand: true;
-                adjustment: Adjustment {
-                  lower: 100;
-                  upper: 100000;
-                  step-increment: 100;
-                  page-increment: 1000;
-                  value: 8000;
-                };
-              }
-
-              SpinButton addt {
-              orientation: horizontal;
-              wrap: false;
-              value: 8000;
-              hexpand: true;
-              climb-rate: 1000;
-              adjustment: Adjustment {
-                lower: 100;
-                upper: 100000;
-                step-increment: 100;
-                page-increment: 1000;
-                value: 8000;
-                };
-              }
-            }
-          }
-        }*/
       }
+
 
       Box buttons {
         orientation: horizontal;
@@ -207,7 +139,7 @@ template $TalismanGtkWindow : Adw.ApplicationWindow {
         halign: center;
         margin-top: 16;
 
-       Button {
+       /*Button {
           styles [
             "pill",
           ]
@@ -215,7 +147,7 @@ template $TalismanGtkWindow : Adw.ApplicationWindow {
             label: _("Save preset");
             icon-name: "document-save-symbolic";
           }
-        }
+        }*/
 
         /*Button {
           styles [
@@ -240,7 +172,7 @@ template $TalismanGtkWindow : Adw.ApplicationWindow {
 
       }
     }
-  }
+  }}
 }
 
 menu primary_menu {
@@ -249,6 +181,20 @@ menu primary_menu {
       label: _("_Preferences");
       action: "app.preferences";
     }*/
+    item {
+      label: _("_Save preset...");
+      action: "app.save_pr";
+    }
+
+    item {
+      label: _("_Load preset...");
+      action: "app.load_pr";
+    }
+
+    item {
+      label: _("Reset the game");
+      action: "app.reset";
+    }
 
     item {
       label: _("_Keyboard Shortcuts");
