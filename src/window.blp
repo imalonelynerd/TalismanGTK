@@ -1,0 +1,263 @@
+using Gtk 4.0;
+using Adw 1;
+
+template $TalismanGtkWindow : Adw.ApplicationWindow {
+  default-width: 700;
+  default-height: 700;
+  title: "Talisman";
+
+  Box {
+    orientation: vertical;
+
+    HeaderBar header_bar {
+      [start]
+      Button{
+        label: _("Load...");
+      }
+      [end]
+      MenuButton {
+        icon-name: "open-menu-symbolic";
+        menu-model: primary_menu;
+      }
+    }
+
+    Box mainbox {
+      orientation: vertical;
+      valign: center;
+      halign: center;
+      vexpand: true;
+      spacing: 24;
+      margin-start: 48;
+      margin-end: 48;
+      margin-top: 48;
+      margin-bottom: 48;
+
+      Box welcome {
+        orientation: vertical;
+        hexpand: true;
+        Image icon{
+        name: "logo";
+        icon-name: "fr.imalonelynerd.Talisman";
+        pixel-size: 128;
+        margin-bottom: 16;
+      }
+
+        Label label {
+          label: "Let's prepare the duel...";
+          hexpand: true;
+          styles [
+            "title-1",
+          ]
+        }
+      }
+
+      Box nickbox {
+        orientation: vertical;
+
+        Label l1 {
+        label: "Players's names";
+        opacity: 0.5;
+        margin-bottom: 8;
+        }
+
+        Box {
+          styles ["linked"]
+          halign: fill;
+          Entry p1nick{
+            hexpand: true;
+            placeholder-text: "Player 1";
+          }
+          Entry p2nick{
+            hexpand: true;
+            placeholder-text: "Player 2";
+          }
+        }
+      }
+
+      Box lpbox {
+        orientation: vertical;
+
+        Label l2 {
+        label: "Life Points (LP)";
+        margin-bottom: 8;
+        opacity: 0.5;
+        }
+
+        SpinButton lp {
+          halign: fill;
+          orientation: horizontal;
+          wrap: false;
+          value: 8000;
+          climb-rate: 1000;
+          adjustment: Adjustment {
+            lower: 100;
+            upper: 100000;
+            step-increment: 100;
+            page-increment: 1000;
+            value: 8000;
+          };
+        }
+      }
+
+      Box timerbox {
+        orientation: vertical;
+        hexpand: true;
+
+        Label l3 {
+        label: "Timer type";
+        margin-bottom: 8;
+        hexpand: true;
+        opacity: 0.5;
+        }
+
+        DropDown drop_down {
+          enable-search: false;
+          model: StringList {
+            strings ["Chronometer", "Timer", "Nexus-like"]
+          };
+        }
+
+        /*Box extra {
+          margin-top: 24;
+          orientation: vertical;
+          spacing: 24;
+
+          Box timerc {
+            orientation: vertical;
+            hexpand: true;
+
+            Label l41 {
+              label: "Countdown";
+              margin-bottom: 8;
+              hexpand: true;
+              opacity: 0.5;
+            }
+
+            SpinButton cnt {
+              halign: fill;
+              orientation: horizontal;
+              wrap: false;
+              value: 120;
+              climb-rate: 1;
+              hexpand: true;
+              adjustment: Adjustment {
+                lower: 10;
+                upper: 100000;
+                step-increment: 1;
+                page-increment: 60;
+                value: 120;
+              };
+            }
+          }
+
+          Box nexusc {
+            orientation: vertical;
+            hexpand: true;
+
+            Label l42 {
+              label: "Individual time | Added time";
+              margin-bottom: 8;
+              hexpand: true;
+              opacity: 0.5;
+            }
+
+            Box {
+              orientation: horizontal;
+              halign: fill;
+              hexpand: true;
+              spacing: 8;
+
+              SpinButton playt {
+                orientation: horizontal;
+                wrap: false;
+                value: 8000;
+                climb-rate: 1000;
+                hexpand: true;
+                adjustment: Adjustment {
+                  lower: 100;
+                  upper: 100000;
+                  step-increment: 100;
+                  page-increment: 1000;
+                  value: 8000;
+                };
+              }
+
+              SpinButton addt {
+              orientation: horizontal;
+              wrap: false;
+              value: 8000;
+              hexpand: true;
+              climb-rate: 1000;
+              adjustment: Adjustment {
+                lower: 100;
+                upper: 100000;
+                step-increment: 100;
+                page-increment: 1000;
+                value: 8000;
+                };
+              }
+            }
+          }
+        }*/
+      }
+
+      Box buttons {
+        orientation: horizontal;
+        spacing: 16;
+        halign: center;
+        margin-top: 16;
+
+       Button {
+          styles [
+            "pill",
+          ]
+          Adw.ButtonContent {
+            label: _("Save preset");
+            icon-name: "document-save-symbolic";
+          }
+        }
+
+        /*Button {
+          styles [
+            "pill",
+          ]
+          Adw.ButtonContent {
+            label: _("Load preset");
+            icon-name: "document-open-symbolic";
+          }
+        }*/
+
+        Button {
+          styles [
+            "pill",
+            "suggested-action",
+          ]
+          Adw.ButtonContent {
+            label: _("Start the duel");
+            icon-name: "media-playback-start-symbolic";
+          }
+        }
+
+      }
+    }
+  }
+}
+
+menu primary_menu {
+  section {
+    /*item {
+      label: _("_Preferences");
+      action: "app.preferences";
+    }*/
+
+    item {
+      label: _("_Keyboard Shortcuts");
+      action: "win.show-help-overlay";
+    }
+
+    item {
+      label: _("_About Talisman");
+      action: "app.about";
+    }
+  }
+}

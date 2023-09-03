@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Talisman
+Exec=talisman_gtk
+Icon=fr.imalonelynerd.Talisman
+Terminal=false
+Type=Application
+Categories=GTK;
+StartupNotify=false

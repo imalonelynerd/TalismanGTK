@@ -1,0 +1,6 @@
+data/fr.imalonelynerd.Talisman.desktop.in
+data/fr.imalonelynerd.Talisman.appdata.xml.in
+data/fr.imalonelynerd.Talisman.gschema.xml
+src/main.py
+src/window.py
+src/window.ui
