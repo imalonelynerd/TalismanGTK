@@ -20,6 +20,7 @@
 import sys
 import gi
 
+
 gi.require_version('Gtk', '4.0')
 gi.require_version('Adw', '1')
 
@@ -36,7 +37,7 @@ class TalismanGtkApplication(Adw.Application):
         self.create_action('quit', lambda *_: self.quit(), ['<primary>q'])
         self.create_action('about', self.on_about_action)
         self.create_action('save_pr', self.test, ['<primary>s'])
-        self.create_action('load_pr', self.test, ['<primary>l'])
+        self.create_action('load_pr', self.load_pr, ['<primary>l'])
         self.create_action('reset', self.test, ['<primary>r'])
         #self.create_action('preferences', self.on_preferences_action)
 
@@ -86,6 +87,10 @@ class TalismanGtkApplication(Adw.Application):
 
     def test(self, widget, _):
         print("uwu")
+
+    def load_pr(self, widget, _):
+        self.props.active_window.load_pr_w()
+
 
 
 def main(version):

@@ -21,7 +21,7 @@ template $TalismanGtkWindow : Adw.ApplicationWindow {
 
   ScrolledWindow {
 
-    Box mainbox {
+    Box {
       orientation: vertical;
       valign: center;
       halign: center;
@@ -32,18 +32,18 @@ template $TalismanGtkWindow : Adw.ApplicationWindow {
       margin-top: 48;
       margin-bottom: 48;
 
-      Box welcome {
+      Box {
         orientation: vertical;
         hexpand: true;
-        Image icon{
+        Image{
           name: "logo";
           icon-name: "fr.imalonelynerd.Talisman";
           pixel-size: 128;
           margin-bottom: 16;
         }
 
-        Label label {
-          label: "Let's prepare the duel...";
+        Label {
+          label: _("Let's prepare the duel...");
           hexpand: true;
           styles [
             "title-1",
@@ -56,7 +56,7 @@ template $TalismanGtkWindow : Adw.ApplicationWindow {
         styles ["boxed-list"]
             Adw.EntryRow p1nick{
               hexpand: true;
-              title: "Player 1 nickname";
+              title: _("Player 1 nickname");
               show-apply-button: true;
             }
 
@@ -64,7 +64,7 @@ template $TalismanGtkWindow : Adw.ApplicationWindow {
 
             Adw.EntryRow p2nick{
               hexpand: true;
-              title: "Player 2 nickname";
+              title: _("Player 2 nickname");
               show-apply-button: true;
             }
 
@@ -73,7 +73,7 @@ template $TalismanGtkWindow : Adw.ApplicationWindow {
         ListBox {
           styles ["boxed-list"]
             Adw.SpinRow lp {
-            title: "Life Points (LP)";
+            title: _("Life Points (LP)");
               halign: fill;
               wrap: false;
               adjustment: Adjustment {
@@ -90,25 +90,38 @@ template $TalismanGtkWindow : Adw.ApplicationWindow {
         ListBox {
             styles ["boxed-list"]
             Adw.ComboRow drop_down {
-            title: "Timer type";
+            title: _("Timer type");
             model: StringList {
-              strings ["Chronometer", "Timer", "Nexus-like"]
+              strings [_("Chronometer"), _("Timer"), _("Nexus-like")]
             };
           }
-        Adw.SpinRow cnt {
-          title: _("Countdown");
-          hexpand: true;
-          adjustment: Adjustment {
-            lower: 10;
-            upper: 100000;
-            step-increment: 1;
-            page-increment: 60;
-            value: 120;
-          };
-        }
 
-        Adw.SpinRow playt {
-          title: _("Individual time");
+          Adw.SpinRow cnt {
+            title: _("Countdown");
+            hexpand: true;
+            adjustment: Adjustment {
+              lower: 10;
+              upper: 100000;
+              step-increment: 1;
+              page-increment: 60;
+              value: 120;
+            };
+          }
+
+          Adw.SpinRow playt {
+            title: _("Individual time");
+            hexpand: true;
+            adjustment: Adjustment {
+              lower: 100;
+              upper: 100000;
+              step-increment: 100;
+              page-increment: 1000;
+              value: 8000;
+            };
+          }
+
+          Adw.SpinRow addt {
+          title: _("Added time");
           hexpand: true;
           adjustment: Adjustment {
             lower: 100;
@@ -118,20 +131,7 @@ template $TalismanGtkWindow : Adw.ApplicationWindow {
             value: 8000;
           };
         }
-
-        Adw.SpinRow addt {
-        title: _("Added time");
-        hexpand: true;
-        adjustment: Adjustment {
-          lower: 100;
-          upper: 100000;
-          step-increment: 100;
-          page-increment: 1000;
-          value: 8000;
-          };
-        }
       }
-
 
       Box buttons {
         orientation: horizontal;
