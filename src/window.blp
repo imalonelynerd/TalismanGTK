@@ -18,6 +18,7 @@ template $TalismanGtkWindow : Adw.ApplicationWindow {
       }
     }
 
+  Adw.ToastOverlay toast {
 
   ScrolledWindow {
 
@@ -89,48 +90,48 @@ template $TalismanGtkWindow : Adw.ApplicationWindow {
 
         ListBox {
             styles ["boxed-list"]
-            Adw.ComboRow drop_down {
+            Adw.ComboRow timer_type {
             title: _("Timer type");
             model: StringList {
               strings [_("Chronometer"), _("Timer"), _("Nexus-like")]
             };
           }
 
-          Adw.SpinRow cnt {
-            title: _("Countdown");
+            Adw.SpinRow cnt {
+              title: _("Countdown");
+              hexpand: true;
+              adjustment: Adjustment {
+                lower: 10;
+                upper: 100000;
+                step-increment: 1;
+                page-increment: 60;
+                value: 120;
+              };
+            }
+
+            Adw.SpinRow playt {
+              title: _("Individual time");
+              hexpand: true;
+              adjustment: Adjustment {
+                lower: 100;
+                upper: 100000;
+                step-increment: 100;
+                page-increment: 1000;
+                value: 120;
+              };
+            }
+
+            Adw.SpinRow addt {
+            title: _("Added time");
             hexpand: true;
             adjustment: Adjustment {
-              lower: 10;
+              lower: 5;
               upper: 100000;
-              step-increment: 1;
-              page-increment: 60;
-              value: 120;
+              step-increment: 10;
+              page-increment: 100;
+              value: 10;
             };
           }
-
-          Adw.SpinRow playt {
-            title: _("Individual time");
-            hexpand: true;
-            adjustment: Adjustment {
-              lower: 100;
-              upper: 100000;
-              step-increment: 100;
-              page-increment: 1000;
-              value: 8000;
-            };
-          }
-
-          Adw.SpinRow addt {
-          title: _("Added time");
-          hexpand: true;
-          adjustment: Adjustment {
-            lower: 100;
-            upper: 100000;
-            step-increment: 100;
-            page-increment: 1000;
-            value: 8000;
-          };
-        }
       }
 
       Box buttons {
@@ -172,7 +173,7 @@ template $TalismanGtkWindow : Adw.ApplicationWindow {
 
       }
     }
-  }}
+  }}}
 }
 
 menu primary_menu {

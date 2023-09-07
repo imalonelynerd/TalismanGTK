@@ -36,7 +36,7 @@ class TalismanGtkApplication(Adw.Application):
                          flags=Gio.ApplicationFlags.DEFAULT_FLAGS)
         self.create_action('quit', lambda *_: self.quit(), ['<primary>q'])
         self.create_action('about', self.on_about_action)
-        self.create_action('save_pr', self.test, ['<primary>s'])
+        self.create_action('save_pr', self.save_pr, ['<primary>s'])
         self.create_action('load_pr', self.load_pr, ['<primary>l'])
         self.create_action('reset', self.test, ['<primary>r'])
         #self.create_action('preferences', self.on_preferences_action)
@@ -90,6 +90,12 @@ class TalismanGtkApplication(Adw.Application):
 
     def load_pr(self, widget, _):
         self.props.active_window.load_pr_w()
+
+    def save_pr(self, widget, _):
+        self.props.active_window.save_pr_w()
+
+    #def on_timer_change(self, widget, _):
+        #self.props.active_window.on_timer_change_w()
 
 
 
