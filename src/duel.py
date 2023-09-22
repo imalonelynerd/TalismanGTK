@@ -1,4 +1,4 @@
-# window.py
+# duel.py
 #
 # Copyright 2023 Nerd
 #
@@ -17,8 +17,6 @@
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 
-import json
-import datetime
 
 from gi.repository import Adw, Gtk, GLib, Gio
 
@@ -38,12 +36,6 @@ class TalismanGtkWindow(Adw.ApplicationWindow):
     addt = Gtk.Template.Child()
     toast = Gtk.Template.Child()
 
-    stack = Gtk.Template.Child()
-    duel = Gtk.Template.Child()
-
-    start = Gtk.Template.Child()
-
-
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.timer_type.connect('notify',self.on_timer_change)
@@ -51,7 +43,6 @@ class TalismanGtkWindow(Adw.ApplicationWindow):
         self.cnt.hide()
         self.playt.hide()
         self.addt.hide()
-        self.start.connect('notify',self.duel_page)
 
     # LOAD PRESET
 
@@ -231,6 +222,4 @@ class TalismanGtkWindow(Adw.ApplicationWindow):
             self.addt.show()
         return
 
-    def duel_page(self, widget, _):
-        self.stack.set_visible_child_name("duel")
-        return
+)

@@ -3,7 +3,7 @@ using Adw 1;
 
 template $TalismanGtkWindow : Adw.ApplicationWindow {
   default-width: 600;
-  default-height: 600;
+  default-height: 700;
   title: "Talisman";
   styles ["devel"]
 
@@ -18,162 +18,151 @@ template $TalismanGtkWindow : Adw.ApplicationWindow {
       }
     }
 
-  Adw.ToastOverlay toast {
+    Adw.ToastOverlay toast {
 
-  ScrolledWindow {
+      Stack stack {
+      transition-type: slide_left;
 
-    Box {
-      orientation: vertical;
-      valign: center;
-      halign: center;
-      vexpand: true;
-      spacing: 24;
-      margin-start: 48;
-      margin-end: 48;
-      margin-top: 48;
-      margin-bottom: 48;
+        StackPage prepare {
+        title: _("Setup");
+        child: ScrolledWindow {
 
-      Box {
-        orientation: vertical;
-        hexpand: true;
-        Image{
-          name: "logo";
-          icon-name: "fr.imalonelynerd.Talisman";
-          pixel-size: 128;
-          margin-bottom: 16;
-        }
+            Box {
+              orientation: vertical;
+              valign: center;
+              halign: center;
+              vexpand: true;
+              spacing: 24;
+              margin-start: 48;
+              margin-end: 48;
+              margin-top: 48;
+              margin-bottom: 48;
 
-        Label {
-          label: _("Let's prepare the duel...");
-          hexpand: true;
-          styles [
-            "title-1",
-          ]
-        }
-      }
+              Box {
+                orientation: vertical;
+                hexpand: true;
 
+                Image{
+                  name: "logo";
+                  icon-name: "fr.imalonelynerd.Talisman";
+                  pixel-size: 128;
+                  margin-bottom: 16;
+                }
 
-        ListBox {
-        styles ["boxed-list"]
-            Adw.EntryRow p1nick{
-              hexpand: true;
-              title: _("Player 1 nickname");
-              show-apply-button: true;
+                Label {
+                  label: _("Let's setup the duel...");
+                  hexpand: true;
+                  styles [
+                    "title-1",
+                  ]
+                }
+              }
+
+              ListBox {
+              styles ["boxed-list"]
+                Adw.EntryRow p1nick{
+                  hexpand: true;
+                  title: _("Player 1 nickname");
+                  show-apply-button: true;
+                }
+
+                Adw.EntryRow p2nick{
+                  hexpand: true;
+                  title: _("Player 2 nickname");
+                  show-apply-button: true;
+                }
+              }
+
+              ListBox {
+                styles ["boxed-list"]
+                Adw.SpinRow lp {
+                title: _("Life Points (LP)");
+                  halign: fill;
+                  wrap: false;
+                  adjustment: Adjustment {
+                    lower: 100;
+                    upper: 100000;
+                    step-increment: 100;
+                    page-increment: 1000;
+                    value: 8000;
+                  };
+                }
+              }
+
+              ListBox {
+                styles ["boxed-list"]
+                Adw.ComboRow timer_type {
+                title: _("Timer type");
+                model: StringList {
+                  strings [_("Chronometer"), _("Timer"), _("Nexus-like")]
+                };
+              }
+
+                Adw.SpinRow cnt {
+                  title: _("Countdown");
+                  hexpand: true;
+                  adjustment: Adjustment {
+                    lower: 10;
+                    upper: 100000;
+                    step-increment: 1;
+                    page-increment: 60;
+                    value: 120;
+                  };
+                }
+
+                Adw.SpinRow playt {
+                  title: _("Individual time");
+                  hexpand: true;
+                  adjustment: Adjustment {
+                    lower: 100;
+                    upper: 100000;
+                    step-increment: 1;
+                    page-increment: 10;
+                    value: 120;
+                  };
+                }
+
+                Adw.SpinRow addt {
+                title: _("Added time");
+                hexpand: true;
+                adjustment: Adjustment {
+                  lower: 5;
+                  upper: 100000;
+                  step-increment: 1;
+                  page-increment: 10;
+                  value: 10;
+                };
+              }
             }
 
+            Box buttons {
+              orientation: horizontal;
+              spacing: 16;
+              halign: center;
+              margin-top: 16;
 
+              Button start {
+                styles ["pill","suggested-action",]
 
-            Adw.EntryRow p2nick{
-              hexpand: true;
-              title: _("Player 2 nickname");
-              show-apply-button: true;
+                Adw.ButtonContent {
+                  label: _("Start the duel");
+                  icon-name: "media-playback-start-symbolic";
+                }
+                }
+              }
             }
-
+          };
         }
 
-        ListBox {
-          styles ["boxed-list"]
-            Adw.SpinRow lp {
-            title: _("Life Points (LP)");
-              halign: fill;
-              wrap: false;
-              adjustment: Adjustment {
-                lower: 100;
-                upper: 100000;
-                step-increment: 100;
-                page-increment: 1000;
-                value: 8000;
-              };
-            }
-
-        }
-
-        ListBox {
-            styles ["boxed-list"]
-            Adw.ComboRow timer_type {
-            title: _("Timer type");
-            model: StringList {
-              strings [_("Chronometer"), _("Timer"), _("Nexus-like")]
-            };
-          }
-
-            Adw.SpinRow cnt {
-              title: _("Countdown");
-              hexpand: true;
-              adjustment: Adjustment {
-                lower: 10;
-                upper: 100000;
-                step-increment: 1;
-                page-increment: 60;
-                value: 120;
-              };
-            }
-
-            Adw.SpinRow playt {
-              title: _("Individual time");
-              hexpand: true;
-              adjustment: Adjustment {
-                lower: 100;
-                upper: 100000;
-                step-increment: 100;
-                page-increment: 1000;
-                value: 120;
-              };
-            }
-
-            Adw.SpinRow addt {
-            title: _("Added time");
-            hexpand: true;
-            adjustment: Adjustment {
-              lower: 5;
-              upper: 100000;
-              step-increment: 10;
-              page-increment: 100;
-              value: 10;
-            };
-          }
-      }
-
-      Box buttons {
-        orientation: horizontal;
-        spacing: 16;
-        halign: center;
-        margin-top: 16;
-
-       /*Button {
-          styles [
-            "pill",
-          ]
-          Adw.ButtonContent {
-            label: _("Save preset");
-            icon-name: "document-save-symbolic";
-          }
-        }*/
-
-        /*Button {
-          styles [
-            "pill",
-          ]
-          Adw.ButtonContent {
-            label: _("Load preset");
-            icon-name: "document-open-symbolic";
-          }
-        }*/
-
-        Button {
-          styles [
-            "pill",
-            "suggested-action",
-          ]
-          Adw.ButtonContent {
-            label: _("Start the duel");
-            icon-name: "media-playback-start-symbolic";
-          }
-        }
-
+        StackPage duel {
+          name: "duel";
+          child:Label awa {
+            label: "Awa";
+          };
       }
     }
-  }}}
+  }
+}
 }
 
 menu primary_menu {

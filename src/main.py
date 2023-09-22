@@ -94,11 +94,6 @@ class TalismanGtkApplication(Adw.Application):
     def save_pr(self, widget, _):
         self.props.active_window.save_pr_w()
 
-    #def on_timer_change(self, widget, _):
-        #self.props.active_window.on_timer_change_w()
-
-
-
 def main(version):
     """The application's entry point."""
     app = TalismanGtkApplication()
