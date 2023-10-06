@@ -2,14 +2,12 @@ using Gtk 4.0;
 using Adw 1;
 
 template $TalismanGtkWindow : Adw.ApplicationWindow {
-  default-width: 600;
+  default-width: 700;
   default-height: 700;
   title: "Talisman";
   styles ["devel"]
-
   Box {
     orientation: vertical;
-
     HeaderBar header_bar {
       [end]
       MenuButton {
@@ -17,16 +15,12 @@ template $TalismanGtkWindow : Adw.ApplicationWindow {
         menu-model: primary_menu;
       }
     }
-
     Adw.ToastOverlay toast {
-
       Stack stack {
-      transition-type: slide_left;
-
+        transition-type: slide_left;
         StackPage prepare {
         title: _("Setup");
         child: ScrolledWindow {
-
             Box {
               orientation: vertical;
               valign: center;
@@ -37,18 +31,15 @@ template $TalismanGtkWindow : Adw.ApplicationWindow {
               margin-end: 48;
               margin-top: 48;
               margin-bottom: 48;
-
               Box {
                 orientation: vertical;
                 hexpand: true;
-
                 Image{
                   name: "logo";
                   icon-name: "fr.imalonelynerd.Talisman";
                   pixel-size: 128;
                   margin-bottom: 16;
                 }
-
                 Label {
                   label: _("Let's setup the duel...");
                   hexpand: true;
@@ -57,9 +48,8 @@ template $TalismanGtkWindow : Adw.ApplicationWindow {
                   ]
                 }
               }
-
               ListBox {
-              styles ["boxed-list"]
+                styles ["boxed-list"]
                 Adw.EntryRow p1nick{
                   hexpand: true;
                   title: _("Player 1 nickname");
@@ -77,27 +67,25 @@ template $TalismanGtkWindow : Adw.ApplicationWindow {
                 styles ["boxed-list"]
                 Adw.SpinRow lp {
                 title: _("Life Points (LP)");
-                  halign: fill;
-                  wrap: false;
-                  adjustment: Adjustment {
-                    lower: 100;
-                    upper: 100000;
-                    step-increment: 100;
-                    page-increment: 1000;
-                    value: 8000;
+                halign: fill;
+                wrap: false;
+                adjustment: Adjustment {
+                  lower: 100;
+                  upper: 100000;
+                  step-increment: 100;
+                  page-increment: 1000;
+                  value: 8000;
                   };
                 }
               }
-
               ListBox {
                 styles ["boxed-list"]
                 Adw.ComboRow timer_type {
                 title: _("Timer type");
                 model: StringList {
                   strings [_("Chronometer"), _("Timer"), _("Nexus-like")]
-                };
-              }
-
+                  };
+                }
                 Adw.SpinRow cnt {
                   title: _("Countdown");
                   hexpand: true;
