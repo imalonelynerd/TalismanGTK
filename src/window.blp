@@ -18,9 +18,10 @@ template $TalismanGtkWindow : Adw.ApplicationWindow {
     Adw.ToastOverlay toast {
       Stack stack {
         transition-type: slide_left;
-        StackPage prepare {
-        title: _("Setup");
-        child: ScrolledWindow {
+        StackPage setup {
+          name: "setup";
+          title: _("Setup");
+          child: ScrolledWindow {
             Box {
               orientation: vertical;
               valign: center;
@@ -53,13 +54,13 @@ template $TalismanGtkWindow : Adw.ApplicationWindow {
                 Adw.EntryRow p1nick{
                   hexpand: true;
                   title: _("Player 1 nickname");
-                  show-apply-button: true;
+                  show-apply-button: false;
                 }
 
                 Adw.EntryRow p2nick{
                   hexpand: true;
                   title: _("Player 2 nickname");
-                  show-apply-button: true;
+                  show-apply-button: false;
                 }
               }
 

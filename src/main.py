@@ -38,7 +38,7 @@ class TalismanGtkApplication(Adw.Application):
         self.create_action('about', self.on_about_action)
         self.create_action('save_pr', self.save_pr, ['<primary>s'])
         self.create_action('load_pr', self.load_pr, ['<primary>l'])
-        self.create_action('reset', self.test, ['<primary>r'])
+        self.create_action('reset', self.reset_pr, ['<primary>r'])
         #self.create_action('preferences', self.on_preferences_action)
 
     def do_activate(self):
@@ -61,9 +61,10 @@ class TalismanGtkApplication(Adw.Application):
                                 developer_name='Nerd',
                                 version='0.0.1 Droll',
                                 developers=['Nerd'],
-                                support_url="https://github.com/lonelynerd/Talisman-GTK/issues",
-                                website="https://github.com/lonelynerd/Talisman-GTK",
-                                copyright='© 2023 Nerd')
+                                support_url="https://github.com/lonelynerd/TalismanGTK/issues",
+                                website="https://github.com/lonelynerd/TalismanGTK",
+                                license_type=Gtk.License.APACHE_2_0
+        )
         about.present()
 
     # def on_preferences_action(self, widget, _):
@@ -93,6 +94,9 @@ class TalismanGtkApplication(Adw.Application):
 
     def save_pr(self, widget, _):
         self.props.active_window.save_pr_w()
+
+    def reset_pr(self, widget, _):
+        self.props.active_window.reset_duel(self, widget)
 
 def main(version):
     """The application's entry point."""

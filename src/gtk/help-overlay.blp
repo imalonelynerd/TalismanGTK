@@ -8,13 +8,35 @@ ShortcutsWindow help_overlay {
     max-height: 10;
 
     ShortcutsGroup {
-      title: C_("shortcut window", "General");
+      title: C_("shortcut window", "Preset management");
 
+      ShortcutsShortcut {
+        title: C_("shortcut window", "Load preset");
+        action-name: "app.load_pr";
+      }
+
+      ShortcutsShortcut {
+        title: C_("shortcut window", "Save preset");
+        action-name: "app.save_pr";
+      }
+    }
+
+    ShortcutsGroup {
+      title: C_("shortcut window", "Duel Management");
+
+      ShortcutsShortcut {
+        title: C_("shortcut window", "Reset");
+        action-name: "app.reset";
+      }
+    }
+
+    ShortcutsGroup {
+      title: C_("shortcut window", "General");
+      
       ShortcutsShortcut {
         title: C_("shortcut window", "Show Shortcuts");
         action-name: "win.show-help-overlay";
       }
-
       ShortcutsShortcut {
         title: C_("shortcut window", "Quit");
         action-name: "app.quit";

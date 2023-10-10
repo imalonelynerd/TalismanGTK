@@ -221,5 +221,3 @@ class TalismanGtkWindow(Adw.ApplicationWindow):
             self.playt.show()
             self.addt.show()
         return
-
-)

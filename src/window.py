@@ -26,6 +26,7 @@ from gi.repository import Adw, Gtk, GLib, Gio
 class TalismanGtkWindow(Adw.ApplicationWindow):
     __gtype_name__ = 'TalismanGtkWindow'
     main_window_title = "Talisman"
+    default_icon_name = "fr.imalonelynerd.Talisman"
 
     p1nick = Gtk.Template.Child()
     p2nick = Gtk.Template.Child()
@@ -39,6 +40,7 @@ class TalismanGtkWindow(Adw.ApplicationWindow):
     toast = Gtk.Template.Child()
 
     stack = Gtk.Template.Child()
+    setup = Gtk.Template.Child()
     duel = Gtk.Template.Child()
 
     start = Gtk.Template.Child()
@@ -233,4 +235,8 @@ class TalismanGtkWindow(Adw.ApplicationWindow):
 
     def duel_page(self, widget, _):
         self.stack.set_visible_child_name("duel")
+        return
+
+    def reset_duel(self, widget, _):
+        self.stack.set_visible_child_name("setup")
         return
