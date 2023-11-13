@@ -3,8 +3,9 @@ using Adw 1;
 
 template $TalismanGtkWindow : Adw.ApplicationWindow {
   default-width: 700;
-  default-height: 700;
+  default-height: 650;
   title: "Talisman";
+  icon-name: "fr.imalonelynerd.Talisman";
   styles ["devel"]
   Box {
     orientation: vertical;
@@ -137,21 +138,200 @@ template $TalismanGtkWindow : Adw.ApplicationWindow {
                   label: _("Start the duel");
                   icon-name: "media-playback-start-symbolic";
                 }
+              }
+            }
+          }
+        };
+      }
+
+        StackPage duel {
+          name: "duel";
+          child: Box {
+             orientation: vertical;
+              valign: center;
+              halign: center;
+              vexpand: true;
+              spacing: 24;
+              margin-start: 48;
+              margin-end: 48;
+              margin-top: 48;
+              margin-bottom: 48;
+              width-request: 600;
+
+
+            Box {
+              orientation: horizontal;
+              valign: center;
+              halign: center;
+              vexpand: true;
+              hexpand: true;
+              spacing: 16;
+
+              Button {
+                Box {
+                   orientation: vertical;
+                   valign: center;
+                    halign: center;
+                    vexpand: true;
+                    spacing: 0;
+                    margin-start: 64;
+                    margin-end: 64;
+                    margin-top: 32;
+                    margin-bottom: 32;
+
+                  Label p1duel {
+                    label: _("Player 1");
+                    opacity: 0.5;
+                    styles ["title-4"]
+                  }
+
+                  Label p1lp {
+                    use-markup: true;
+                    label: "<span size='40000'>8000</span>";
+                    styles ["title-1"]
+                  }
+
+                  Button p1time {
+                    label: "180";
+                    styles ["circular"]
+                  }
+                }
+              }
+
+              CenterBox {
+                orientation: vertical;
+                halign: center;
+
+                [center]
+                Box {
+                  orientation: vertical;
+                  spacing: 8;
+
+                  Button switchb {
+                    icon-name: "system-switch-user-symbolic";
+                    styles ["circular"]
+                  }
+
+                  Button addb {
+                    icon-name: "list-add-symbolic";
+                    styles ["circular"]
+                  }
+                }
+              }
+
+              Button {
+                Box {
+                  orientation: vertical;
+                  valign: center;
+                  halign: center;
+                  vexpand: true;
+                  spacing: 0;
+                  margin-start: 64;
+                  margin-end: 64;
+                  margin-top: 32;
+                  margin-bottom: 32;
+
+                  Label p2duel {
+                    label: _("Player 2");
+                    opacity: 0.5;
+                    styles ["title-4"]
+                  }
+
+                  Label p2lp {
+                    label: "<span size='40000'>8000</span>";
+                    use-markup: true;
+                    styles ["title-1"]
+                  }
+
+                  Button p2time {
+                    label: "180";
+                    styles ["circular"]
+                  }
+                }
+              }
+            }
+
+            Frame {
+              CenterBox {
+                margin-end: 16;
+                margin-start: 16;
+                margin-top: 16;
+                margin-bottom: 16;
+
+                [start]
+                Box {
+                  orientation: horizontal;
+                  spacing: 16;
+
+                  Label dtimer {
+                    label: "00:00:00";
+                    styles ["title-2"]
+                  }
+
+                  Label dtype {
+                  opacity: 0.5;
+                   label: _("Timer");
+                 }
+                }
+
+                [end]
+                Box {
+                  orientation: horizontal;
+                  spacing: 16;
+                  Button startb {
+                    icon-name: "media-playback-start-symbolic";
+                    styles ["suggested-action"]
+                  }
+
+                  Button resb {
+                    icon-name: "view-refresh-symbolic";
+                  }
+                }
+              }
+            }
+
+            CenterBox {
+              halign: fill;
+              hexpand: true;
+
+              [center]
+              Box {
+                orientation: horizontal;
+                halign: center;
+                hexpand: true;
+                spacing: 16;
+                margin-top: 64;
+
+                Button toolsb {
+                  Adw.ButtonContent {
+                    label: "Tools";
+                    icon-name: "view-grid-symbolic";
+                  }
+                  styles ["pill"]
+                }
+
+                Button {
+                  Adw.ButtonContent {
+                    label: "Notebook";
+                    icon-name: "standard-notes-symbolic";
+                  }
+                  styles ["pill"]
+                }
+
+                Button {
+                  Adw.ButtonContent {
+                    label: "Forfeit";
+                    icon-name: "org.gnome.Settings-privacy-symbolic";
+                  }
+                  styles ["pill", "destructive-action"]
                 }
               }
             }
           };
         }
-
-        StackPage duel {
-          name: "duel";
-          child:Label awa {
-            label: "Awa";
-          };
       }
     }
   }
-}
 }
 
 menu primary_menu {
