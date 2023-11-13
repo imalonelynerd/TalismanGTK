@@ -4,4 +4,11 @@
     <file preprocess="xml-stripblanks">window.ui</file>
     <file preprocess="xml-stripblanks">gtk/help-overlay.ui</file>
   </gresource>
+  <gresource prefix="/fr/imalonelynerd/Talisman/icons/scalable/actions/">
+    <file preprocess="xml-stripblanks" alias="accessories-text-editor-symbolic.svg">../data/icons/accessories-text-editor-symbolic.svg</file>
+    <file preprocess="xml-stripblanks" alias="hand-middle-finger-symbolic.svg">../data/icons/hand-middle-finger-symbolic.svg</file>
+    <file preprocess="xml-stripblanks" alias="horizontal-arrows-symbolic.svg">../data/icons/horizontal-arrows-symbolic.svg</file>
+    <file preprocess="xml-stripblanks" alias="document-edit-symbolic.svg">../data/icons/document-edit-symbolic.svg</file>
+    <file preprocess="xml-stripblanks" alias="eraser3-symbolic.svg">../data/icons/eraser3-symbolic.svg</file>
+  </gresource>
 </gresources>

@@ -3,19 +3,33 @@ using Adw 1;
 
 template $TalismanGtkWindow : Adw.ApplicationWindow {
   default-width: 700;
-  default-height: 650;
+  default-height: 700;
   title: "Talisman";
   icon-name: "fr.imalonelynerd.Talisman";
   styles ["devel"]
+
   Box {
     orientation: vertical;
+
     HeaderBar header_bar {
       [end]
-      MenuButton {
-        icon-name: "open-menu-symbolic";
-        menu-model: primary_menu;
+      Box {
+        orientation: horizontal;
+        spacing: 8;
+
+        Button eraseb {
+          Adw.ButtonContent {
+            icon-name: "eraser3-symbolic";
+          }
+        }
+
+        MenuButton {
+          icon-name: "open-menu-symbolic";
+          menu-model: primary_menu;
+        }
       }
     }
+
     Adw.ToastOverlay toast {
       Stack stack {
         transition-type: slide_left;
@@ -85,11 +99,11 @@ template $TalismanGtkWindow : Adw.ApplicationWindow {
                 Adw.ComboRow timer_type {
                 title: _("Timer type");
                 model: StringList {
-                  strings [_("Chronometer"), _("Timer"), _("Nexus-like")]
+                  strings [_("Chronometer"), _("Countdown"), _("Nexus-like")]
                   };
                 }
                 Adw.SpinRow cnt {
-                  title: _("Countdown");
+                  title: _("Time");
                   hexpand: true;
                   adjustment: Adjustment {
                     lower: 10;
@@ -198,7 +212,7 @@ template $TalismanGtkWindow : Adw.ApplicationWindow {
                 }
               }
 
-              CenterBox {
+              CenterBox switchp {
                 orientation: vertical;
                 halign: center;
 
@@ -208,7 +222,7 @@ template $TalismanGtkWindow : Adw.ApplicationWindow {
                   spacing: 8;
 
                   Button switchb {
-                    icon-name: "system-switch-user-symbolic";
+                    icon-name: "horizontal-arrows-symbolic";
                     styles ["circular"]
                   }
 
@@ -300,7 +314,7 @@ template $TalismanGtkWindow : Adw.ApplicationWindow {
                 halign: center;
                 hexpand: true;
                 spacing: 16;
-                margin-top: 64;
+                margin-top: 32;
 
                 Button toolsb {
                   Adw.ButtonContent {
@@ -313,7 +327,7 @@ template $TalismanGtkWindow : Adw.ApplicationWindow {
                 Button {
                   Adw.ButtonContent {
                     label: "Notebook";
-                    icon-name: "standard-notes-symbolic";
+                    icon-name: "accessories-text-editor-symbolic";
                   }
                   styles ["pill"]
                 }
@@ -321,7 +335,7 @@ template $TalismanGtkWindow : Adw.ApplicationWindow {
                 Button {
                   Adw.ButtonContent {
                     label: "Forfeit";
-                    icon-name: "org.gnome.Settings-privacy-symbolic";
+                    icon-name: "hand-middle-finger-symbolic";
                   }
                   styles ["pill", "destructive-action"]
                 }
@@ -336,10 +350,6 @@ template $TalismanGtkWindow : Adw.ApplicationWindow {
 
 menu primary_menu {
   section {
-    /*item {
-      label: _("_Preferences");
-      action: "app.preferences";
-    }*/
     item {
       label: _("_Save preset...");
       action: "app.save_pr";

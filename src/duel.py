@@ -19,8 +19,3 @@
 
 
 from gi.repository import Adw, Gtk, GLib, Gio
-
-@Gtk.Template(resource_path='/fr/imalonelynerd/Talisman/window.ui')
-class TalismanGtkWindow(Adw.ApplicationWindow):
-    __gtype_name__ = 'TalismanGtkWindow'
-    main_window_title = "Talisman"

@@ -41,6 +41,8 @@ talisman_gtk_sources = [
   'main.py',
   'window.py',
   'duel.py',
+  'calculator.py',
+  'talutils.py'
 ]
 
 install_data(talisman_gtk_sources, install_dir: moduledir)

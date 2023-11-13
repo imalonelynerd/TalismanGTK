@@ -19,6 +19,7 @@
 
 import json
 import datetime
+from .talutils import *
 
 from gi.repository import Adw, Gtk, GLib, Gio
 
@@ -27,6 +28,8 @@ class TalismanGtkWindow(Adw.ApplicationWindow):
     __gtype_name__ = 'TalismanGtkWindow'
     main_window_title = "Talisman"
     default_icon_name = "fr.imalonelynerd.Talisman"
+
+    # Setup page componements
 
     p1nick = Gtk.Template.Child()
     p2nick = Gtk.Template.Child()
@@ -37,23 +40,38 @@ class TalismanGtkWindow(Adw.ApplicationWindow):
     cnt = Gtk.Template.Child()
     playt = Gtk.Template.Child()
     addt = Gtk.Template.Child()
-    toast = Gtk.Template.Child()
+
+    start = Gtk.Template.Child()
+    eraseb = Gtk.Template.Child()
 
     stack = Gtk.Template.Child()
     setup = Gtk.Template.Child()
     duel = Gtk.Template.Child()
+    toast = Gtk.Template.Child()
 
-    start = Gtk.Template.Child()
+    # Duel page
 
+    p1duel = Gtk.Template.Child()
+    p2duel = Gtk.Template.Child()
+
+    p1lp = Gtk.Template.Child()
+    p2lp = Gtk.Template.Child()
+
+    p1time = Gtk.Template.Child()
+    p2time = Gtk.Template.Child()
+
+    switchp = Gtk.Template.Child()
+    dtype = Gtk.Template.Child()
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.timer_type.connect('notify',self.on_timer_change)
+        self.eraseb.connect('clicked',self.erase_inputs)
         self.timer_type.set_selected(0)
         self.cnt.hide()
         self.playt.hide()
         self.addt.hide()
-        self.start.connect('notify',self.duel_page)
+        self.start.connect('clicked',self.start_duel)
 
     # LOAD PRESET
 
@@ -233,10 +251,61 @@ class TalismanGtkWindow(Adw.ApplicationWindow):
             self.addt.show()
         return
 
-    def duel_page(self, widget, _):
+    def start_duel(self, widget):
+        p1 = Player(self.p1nick.get_text(), int(self.lp.get_text()))
+        p2 = Player(self.p2nick.get_text(), int(self.lp.get_text()))
+
+        settings = Settings(
+            self.timer_type.get_selected(),
+            [
+                int(self.cnt.get_text()),
+                int(self.playt.get_text()),
+                int(self.addt.get_text())
+            ]
+        )
+
+        self.tournament = Tournament(p1, p2, settings)
+
+        self.p1duel.set_text(self.tournament.p1.getPlayerName())
+        self.p2duel.set_text(self.tournament.p2.getPlayerName())
+
+        self.p1lp.set_text(str(self.tournament.p1.getFormatedLP()))
+        self.p2lp.set_text(str(self.tournament.p2.getFormatedLP()))
+        self.p1lp.set_use_markup(True)
+        self.p2lp.set_use_markup(True)
+
+
+        self.p1time.set_label(str(self.tournament.p1.getTimer()))
+        self.p2time.set_label(str(self.tournament.p2.getTimer()))
+
+        print(self.tournament.settings.getTimerType())
+
+        if(self.tournament.settings.getTimerType() != 2):
+            self.p1time.hide()
+            self.p2time.hide()
+            self.switchp.hide()
+
+        self.dtype.set_text(self.tournament.settings.getTimerName())
+
+        self.eraseb.hide()
         self.stack.set_visible_child_name("duel")
+        return
+
+    def erase_inputs(self, widget):
+        self.p1nick.set_text("")
+        self.p2nick.set_text("")
+        self.lp.set_text("8000")
+        self.cnt.set_text("120")
+        self.playt.set_text("120")
+        self.addt.set_text("10")
+        self.send_toast(_("Inputs deleted successfully !"))
         return
 
     def reset_duel(self, widget, _):
         self.stack.set_visible_child_name("setup")
+        self.eraseb.show()
+        self.p1time.show()
+        self.p2time.show()
+        self.switchp.show()
         return
+
