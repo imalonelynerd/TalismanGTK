@@ -19,7 +19,11 @@
 
 import json
 import datetime
+
 from .talutils import *
+
+from .calculator import *
+from .tools import *
 
 from gi.repository import Adw, Gtk, GLib, Gio
 
@@ -68,6 +72,9 @@ class TalismanGtkWindow(Adw.ApplicationWindow):
     noteb = Gtk.Template.Child()
     ff = Gtk.Template.Child()
 
+    p1c = Gtk.Template.Child()
+    p2c = Gtk.Template.Child()
+
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.timer_type.connect('notify', self.on_timer_change)
@@ -77,11 +84,12 @@ class TalismanGtkWindow(Adw.ApplicationWindow):
         self.playt.hide()
         self.addt.hide()
         self.start.connect('clicked', self.start_duel)
-        self.ff.connect('clicked', self.rd_p2)
+        self.ff.connect('clicked', self.forfeit_b)
+        self.toolsb.connect('clicked', self.set_tools)
 
     # LOAD PRESET
 
-    def load_pr_w(self):
+    def load_preset_w(self):
         self._native = Gtk.FileChooserNative(
             title=_("Open File"),
             transient_for=self,
@@ -167,7 +175,7 @@ class TalismanGtkWindow(Adw.ApplicationWindow):
 
     # SAVE PRESET
 
-    def save_pr_w(self):
+    def save_preset_w(self):
         self._native = Gtk.FileChooserNative(
             title=_("Save File As"),
             transient_for=self,
@@ -241,7 +249,7 @@ class TalismanGtkWindow(Adw.ApplicationWindow):
         self.toast.add_toast(Adw.Toast(title=text))
         return
 
-    def on_timer_change(self, widget, _):
+    def on_timer_change(self, _w, _):
         val = self.timer_type.get_selected()
         if val == 0:
             self.cnt.hide()
@@ -257,11 +265,11 @@ class TalismanGtkWindow(Adw.ApplicationWindow):
             self.addt.show()
         return
 
-    def start_duel(self, widget):
-        p1 = Player(self.p1nick.get_text(), int(self.lp.get_text()))
-        p2 = Player(self.p2nick.get_text(), int(self.lp.get_text()))
+    def start_duel(self, _w):
+        self.p1 = Player(self.p1nick.get_text(), int(self.lp.get_text()))
+        self.p2 = Player(self.p2nick.get_text(), int(self.lp.get_text()))
 
-        settings = Settings(
+        self.settings = Settings(
             self.timer_type.get_selected(),
             [
                 int(self.cnt.get_text()),
@@ -270,8 +278,11 @@ class TalismanGtkWindow(Adw.ApplicationWindow):
             ]
         )
 
-        self.tournament = Tournament(p1, p2, settings)
-
+        self.tournament = Tournament(self.p1, self.p2, self.settings)
+        if(self.tournament.p1.getPlayerName() == ""):
+            self.tournament.p1.setPlayerName(_("Player 1"))
+        if(self.tournament.p2.getPlayerName() == ""):
+            self.tournament.p2.setPlayerName(_("Player 2"))
         self.p1duel.set_text(self.tournament.p1.getPlayerName())
         self.p2duel.set_text(self.tournament.p2.getPlayerName())
 
@@ -283,7 +294,8 @@ class TalismanGtkWindow(Adw.ApplicationWindow):
         self.p1time.set_label(str(self.tournament.p1.getTimer()))
         self.p2time.set_label(str(self.tournament.p2.getTimer()))
 
-        print(self.tournament.settings.getTimerType())
+        self.calc1 = self.p1c.connect('clicked',lambda *_, infos=self.tournament.p1: self.set_calculator(infos))
+        self.calc2 = self.p2c.connect('clicked',lambda *_, infos=self.tournament.p2: self.set_calculator(infos))
 
         if (self.tournament.settings.getTimerType() != 2):
             self.p1time.hide()
@@ -296,7 +308,7 @@ class TalismanGtkWindow(Adw.ApplicationWindow):
         self.stack.set_visible_child_name("duel")
         return
 
-    def erase_inputs(self, widget):
+    def erase_inputs(self, _w):
         self.p1nick.set_text("")
         self.p2nick.set_text("")
         self.lp.set_text("8000")
@@ -306,16 +318,18 @@ class TalismanGtkWindow(Adw.ApplicationWindow):
         self.send_toast(_("Inputs deleted successfully !"))
         return
 
-    def rd_p1(self, widget, _):
+    def forfeit_m(self, widget, _):
         if self.stack.get_visible_child_name() != "setup":
-            self.reset_duel_pre()
+            self.forfeit_pre()
+        else:
+            self.erase_inputs(widget)
         return
 
-    def rd_p2(self, widget):
-        self.reset_duel_pre()
+    def forfeit_b(self, _w):
+        self.forfeit_pre()
         return
 
-    def reset_duel_pre(self):
+    def forfeit_pre(self):
         dialog = Adw.MessageDialog.new(
             self,
             _("Forfeit duel ?"),
@@ -325,17 +339,36 @@ class TalismanGtkWindow(Adw.ApplicationWindow):
         dialog.add_response("ff", _("I'm sure"))
         dialog.set_response_appearance("ff", Adw.ResponseAppearance.DESTRUCTIVE);
         dialog.set_close_response("cancel")
-        dialog.connect('response', self.reset_duel)
+        dialog.connect('response', self.forfeit)
         Gtk.Window.present(dialog)
 
-    def reset_duel(self, widget, response):
+    def forfeit(self, _w, response):
         if response == "ff":
             self.stack.set_transition_type(2)
             self.stack.set_visible_child_name("setup")
             self.stack.set_transition_type(3)
             self.eraseb.show()
+            self.p1c.disconnect(self.calc1)
+            self.p2c.disconnect(self.calc2)
             self.p1time.show()
             self.p2time.show()
             self.switchp.show()
             self.send_toast(_("Forfeited !"))
         return
+
+    def set_calculator(self, infos):
+        calcw = CalculatorWindow(self, infos)
+        calcw.connect("close_request", self.update_lp)
+
+    def update_lp(self, _):
+        print(self.tournament.p1.getLP(), self.tournament.p2.getLP())
+        self.refresh()
+
+    def refresh(self):
+        self.p1lp.set_text(self.tournament.p1.getFormatedLP())
+        self.p2lp.set_text(self.tournament.p2.getFormatedLP())
+        self.p1lp.set_use_markup(True)
+        self.p2lp.set_use_markup(True)
+
+    def set_tools(self, _):
+        toolsw = ToolsWindow(self)

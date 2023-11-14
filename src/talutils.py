@@ -1,17 +1,16 @@
-class Player(object):
+class Player:
 
     def __init__(self, nick : str, lp : int):
         assert lp >= 100
-
-        if nick == "" :
-            self.nick = "Player"
-        else:
-            self.nick = nick
+        self.nick = nick
         self.lp = lp
         self.timer = -1
 
     def getPlayerName(self):
         return self.nick
+
+    def setPlayerName(self, nme : str):
+        self.nick = nme
 
     def getLP(self):
         return self.lp
@@ -38,7 +37,7 @@ class Player(object):
         assert self.timer > 0
         self.timer -= 1
 
-class Settings(object):
+class Settings:
 
     def __init__(self, timertype : int, params : list):
         assert 0 <= timertype <= 2
@@ -74,7 +73,7 @@ class Settings(object):
         return self.params[2]
 
 
-class Tournament(object):
+class Tournament:
     def __init__(self,p1 : Player, p2 : Player, settings : Settings):
         assert p1 != None
         assert p2 != None
@@ -89,3 +88,44 @@ class Tournament(object):
         if(self.settings.getTimerType() == 2):
             self.p1.setTimer(self.settings.getPlayerTime())
             self.p2.setTimer(self.settings.getPlayerTime())
+
+class Calculator:
+
+    def __init__(self, ope = 0):
+        assert 0 <= ope <= 3
+
+        self.ope = 0
+
+    def getOpe(self):
+        return self.ope
+
+    def getFormatedOpe(self):
+        match(self.ope):
+            case 0:
+                return "+"
+            case 1:
+                return "-"
+            case 2:
+                return "*"
+            case 3:
+                return "/"
+
+    def setOpe(self, ope : int):
+        assert 0 <= ope <= 3
+        self.ope = ope
+
+    def calculate(self,value1 : int, value2 : int):
+        match(self.ope):
+            case 0:
+                return value1 + value2
+            case 1:
+                res = value1 - value2
+                if(res < 0):
+                    return 0
+                return res
+            case 2:
+                return value1 * value2
+            case 3:
+                if(value2 == 0):
+                    return 0
+                return value1 // value2

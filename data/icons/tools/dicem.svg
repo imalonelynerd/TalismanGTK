@@ -1,0 +1,13 @@
+<svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="20" y="7" width="88" height="114" rx="16" stroke="#808080" stroke-width="4"/>
+<rect x="20" y="83" width="88" height="38" rx="16" stroke="#808080" stroke-width="4"/>
+<ellipse cx="40" cy="112" rx="8" ry="3" transform="rotate(180 40 112)" stroke="#808080" stroke-width="4"/>
+<ellipse cx="88" cy="92" rx="8" ry="3" transform="rotate(180 88 92)" stroke="#808080" stroke-width="4"/>
+<ellipse cx="64" cy="102" rx="8" ry="3" transform="rotate(180 64 102)" stroke="#808080" stroke-width="4"/>
+<rect x="20" y="7" width="88" height="70" rx="16" stroke="#808080" stroke-width="4"/>
+<ellipse cx="40" cy="24" rx="8" ry="7" stroke="#808080" stroke-width="4"/>
+<ellipse cx="88" cy="60" rx="8" ry="7" stroke="#808080" stroke-width="4"/>
+<ellipse cx="64" cy="42" rx="8" ry="7" stroke="#808080" stroke-width="4"/>
+<ellipse cx="8" cy="7" rx="8" ry="7" transform="matrix(-1 0 0 1 96 17)" stroke="#808080" stroke-width="4"/>
+<ellipse cx="8" cy="7" rx="8" ry="7" transform="matrix(-1 0 0 1 48 53)" stroke="#808080" stroke-width="4"/>
+</svg>

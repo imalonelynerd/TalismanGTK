@@ -35,9 +35,9 @@ class TalismanGtkApplication(Adw.Application):
                          flags=Gio.ApplicationFlags.DEFAULT_FLAGS)
         self.create_action('quit', lambda *_: self.quit(), ['<primary>q'])
         self.create_action('about', self.on_about_action)
-        self.create_action('save_pr', self.save_pr, ['<primary>s'])
-        self.create_action('load_pr', self.load_pr, ['<primary>l'])
-        self.create_action('reset', self.reset_pr, ['<primary>r'])
+        self.create_action('save_preset', self.save_preset, ['<primary>s'])
+        self.create_action('load_preset', self.load_preset, ['<primary>l'])
+        self.create_action('reset', self.reset_preset, ['<primary>r'])
 
     def do_activate(self):
         """Called when the application is activated.
@@ -84,14 +84,14 @@ class TalismanGtkApplication(Adw.Application):
         if shortcuts:
             self.set_accels_for_action(f"app.{name}", shortcuts)
 
-    def load_pr(self, widget, _):
-        self.props.active_window.load_pr_w()
+    def load_preset(self, widget, _):
+        self.props.active_window.load_preset_w()
 
-    def save_pr(self, widget, _):
-        self.props.active_window.save_pr_w()
+    def save_preset(self, widget, _):
+        self.props.active_window.save_preset_w()
 
-    def reset_pr(self, widget, _):
-        self.props.active_window.rd_p1(self, widget)
+    def reset_preset(self, widget, _):
+        self.props.active_window.forfeit_m(self, widget)
 
 
 def main(version):

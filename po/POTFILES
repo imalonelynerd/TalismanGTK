@@ -3,4 +3,6 @@ data/fr.imalonelynerd.Talisman.appdata.xml.in
 data/fr.imalonelynerd.Talisman.gschema.xml
 src/main.py
 src/window.py
+src/calculator/calculator.py
+src/tools/tools.py
 src/window.ui

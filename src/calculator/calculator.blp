@@ -1,0 +1,345 @@
+using Gtk 4.0;
+using Adw 1;
+
+template $CalculatorWindow : Adw.Window {
+  default-width: 400;
+  default-height: 500;
+  modal: true;
+
+  Adw.ToolbarView {
+    [top]
+    HeaderBar header_bar {
+      [end]
+      Button clearb {
+        Adw.ButtonContent {
+          icon-name: "eraser3-symbolic";
+        }
+      }
+    }
+
+    content: Adw.ToastOverlay toastcalc {
+      Box {
+        halign: fill;
+        valign: fill;
+        hexpand: true;
+        vexpand: true;
+        orientation: vertical;
+        spacing: 16;
+        margin-top: 32;
+        margin-bottom: 32;
+        margin-start: 32;
+        margin-end: 32;
+
+        Frame {
+          Box {
+            orientation: vertical;
+            spacing: 0;
+            margin-top: 16;
+            margin-bottom: 16;
+            margin-start: 16;
+            margin-end: 16;
+
+            Label before {
+              label: "8000";
+              opacity: 0.75;
+              styles ["title-2"]
+            }
+
+            Label ope {
+              label: "-";
+              opacity: 0.5;
+              hexpand: true;
+            styles ["title-3"]
+            }
+
+            SpinButton value {
+              halign: center;
+              orientation: horizontal;
+              wrap: false;
+              value: 0;
+              climb-rate: 100;
+              adjustment: Adjustment {
+                lower: 0;
+                upper: 100000;
+                step-increment: 100;
+                page-increment: 1000;
+                value: 0;
+              };
+            }
+
+            Label {
+              label: "=";
+              opacity: 0.5;
+              hexpand: true;
+
+            styles ["title-3"]
+            }
+
+            Label after {
+              label: "4000";
+              styles ["title-1"]
+            }
+          }
+        }
+
+        Box {
+          hexpand: true;
+          spacing: 8;
+
+          Button add {
+            hexpand: true;
+            Label {
+              margin-top: 8;
+              margin-bottom: 8;
+              label: "+";
+            }
+            styles ["circular","title-3"]
+          }
+
+          Button rem {
+            hexpand: true;
+            Label {
+              margin-top: 8;
+              margin-bottom: 8;
+              label: "-";
+            }
+            styles ["circular","title-3"]
+          }
+
+          Button mul {
+            hexpand: true;
+            Label {
+              margin-top: 8;
+              margin-bottom: 8;
+              label: "*";
+            }
+            styles ["circular","title-3"]
+          }
+
+          Button div {
+            hexpand: true;
+            Label {
+              margin-top: 8;
+              margin-bottom: 8;
+              label: "/";
+            }
+            styles ["circular","title-3"]
+          }
+        }
+
+        Grid {
+          halign: fill;
+          valign: fill;
+          hexpand: true;
+          vexpand: true;
+          row-spacing: 8;
+          column-spacing: 8;
+
+          Button b1 {
+            layout {
+              row: 0;
+              column: 0;
+            }
+            Label {
+              margin-start: 20;
+              margin-end: 20;
+              margin-top: 16;
+              margin-bottom: 16;
+              label: "1";
+            }
+            hexpand: true;
+            vexpand: true;
+            styles ["title-3"]
+          }
+
+          Button b2 {
+            layout {
+              row: 0;
+              column: 1;
+            }
+            Label {
+              margin-start: 20;
+              margin-end: 20;
+              margin-top: 16;
+              margin-bottom: 16;
+              label: "2";
+            }
+            hexpand: true;
+            vexpand: true;
+            styles ["title-3"]
+          }
+
+          Button b3 {
+            layout {
+              row: 0;
+              column: 2;
+            }
+            Label {
+              margin-start: 20;
+              margin-end: 20;
+              margin-top: 16;
+              margin-bottom: 16;
+              label: "3";
+            }
+            hexpand: true;
+            vexpand: true;
+            styles ["title-3"]
+          }
+
+          Button b4 {
+            layout {
+              row: 1;
+              column: 0;
+            }
+            Label {
+              margin-start: 20;
+              margin-end: 20;
+              margin-top: 16;
+              margin-bottom: 16;
+              label: "4";
+            }
+            hexpand: true;
+            vexpand: true;
+            styles ["title-3"]
+          }
+
+          Button b5 {
+            layout {
+              row: 1;
+              column: 1;
+            }
+            Label {
+              margin-start: 20;
+              margin-end: 20;
+              margin-top: 16;
+              margin-bottom: 16;
+              label: "5";
+            }
+            hexpand: true;
+            vexpand: true;
+            styles ["title-3"]
+          }
+
+          Button b6 {
+            layout {
+              row: 1;
+              column: 2;
+            }
+            Label {
+              margin-start: 20;
+              margin-end: 20;
+              margin-top: 16;
+              margin-bottom: 16;
+              label: "6";
+            }
+            hexpand: true;
+            vexpand: true;
+            styles ["title-3"]
+          }
+
+          Button b7 {
+            layout {
+              row: 2;
+              column: 0;
+            }
+            Label {
+              margin-start: 20;
+              margin-end: 20;
+              margin-top: 16;
+              margin-bottom: 16;
+              label: "7";
+            }
+            hexpand: true;
+            vexpand: true;
+            styles ["title-3"]
+          }
+
+          Button b8 {
+            layout {
+              row: 2;
+              column: 1;
+            }
+            Label {
+              margin-start: 20;
+              margin-end: 20;
+              margin-top: 16;
+              margin-bottom: 16;
+              label: "8";
+            }
+            hexpand: true;
+            vexpand: true;
+            styles ["title-3"]
+          }
+
+          Button b9 {
+            layout {
+              row: 2;
+              column: 2;
+            }
+            Label {
+              margin-start: 20;
+              margin-end: 20;
+              margin-top: 16;
+              margin-bottom: 16;
+              label: "9";
+            }
+            hexpand: true;
+            vexpand: true;
+            styles ["title-3"]
+          }
+
+          Button br {
+            layout {
+              row: 3;
+              column: 0;
+            }
+            Adw.ButtonContent {
+              margin-start: 20;
+              margin-end: 20;
+              margin-top: 16;
+              margin-bottom: 16;
+              icon-name: "entry-clear-symbolic";
+            }
+            hexpand: true;
+            vexpand: true;
+            styles ["circular","destructive-action"]
+          }
+
+          Button b0 {
+            layout {
+              row: 3;
+              column: 1;
+            }
+            Label {
+              margin-start: 20;
+              margin-end: 20;
+              margin-top: 16;
+              margin-bottom: 16;
+              label: "0";
+            }
+            hexpand: true;
+            vexpand: true;
+            styles ["title-3"]
+          }
+
+          Button be {
+            layout {
+              row: 3;
+              column: 2;
+            }
+            Adw.ButtonContent {
+              margin-start: 20;
+              margin-end: 20;
+              margin-top: 16;
+              margin-bottom: 16;
+              icon-name: "keyboard-enter-symbolic";
+            }
+            hexpand: true;
+            vexpand: true;
+            styles ["circular","suggested-action"]
+          }
+        }
+      }
+    };
+  }
+}

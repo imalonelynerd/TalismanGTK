@@ -2,7 +2,8 @@
 <gresources>
   <gresource prefix="/fr/imalonelynerd/Talisman">
     <file preprocess="xml-stripblanks">window.ui</file>
-    <file preprocess="xml-stripblanks">calculator.ui</file>
+    <file alias="calculator.ui" preprocess="xml-stripblanks">calculator/calculator.ui</file>
+    <file alias="tools.ui" preprocess="xml-stripblanks">tools/tools.ui</file>
     <file preprocess="xml-stripblanks">gtk/help-overlay.ui</file>
   </gresource>
   <gresource prefix="/fr/imalonelynerd/Talisman/icons/scalable/actions/">
@@ -11,5 +12,20 @@
     <file preprocess="xml-stripblanks" alias="horizontal-arrows-symbolic.svg">../data/icons/horizontal-arrows-symbolic.svg</file>
     <file preprocess="xml-stripblanks" alias="document-edit-symbolic.svg">../data/icons/document-edit-symbolic.svg</file>
     <file preprocess="xml-stripblanks" alias="eraser3-symbolic.svg">../data/icons/eraser3-symbolic.svg</file>
+    <file preprocess="xml-stripblanks" alias="entry-clear-symbolic.svg">../data/icons/entry-clear-symbolic.svg</file>
+    <file preprocess="xml-stripblanks" alias="keyboard-enter-symbolic.svg">../data/icons/keyboard-enter-symbolic.svg</file>
+
+    <file preprocess="xml-stripblanks" alias="dice1.svg">../data/icons/tools/dice1.svg</file>
+    <file preprocess="xml-stripblanks" alias="dice2.svg">../data/icons/tools/dice2.svg</file>
+    <file preprocess="xml-stripblanks" alias="dice3.svg">../data/icons/tools/dice3.svg</file>
+    <file preprocess="xml-stripblanks" alias="dice4.svg">../data/icons/tools/dice4.svg</file>
+    <file preprocess="xml-stripblanks" alias="dice5.svg">../data/icons/tools/dice5.svg</file>
+    <file preprocess="xml-stripblanks" alias="dice6.svg">../data/icons/tools/dice6.svg</file>
+
+    <file preprocess="xml-stripblanks" alias="coin1.svg">../data/icons/tools/coin1.svg</file>
+    <file preprocess="xml-stripblanks" alias="coin2.svg">../data/icons/tools/coin2.svg</file>
+
+    <file preprocess="xml-stripblanks" alias="coinm.svg">../data/icons/tools/coinm.svg</file>
+    <file preprocess="xml-stripblanks" alias="dicem.svg">../data/icons/tools/dicem.svg</file>
   </gresource>
 </gresources>

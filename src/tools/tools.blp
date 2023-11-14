@@ -1,0 +1,82 @@
+using Gtk 4.0;
+using Adw 1;
+
+template $ToolsWindow : Adw.Window {
+  default-width: 400;
+  default-height: 200;
+  modal: true;
+
+  Adw.ToolbarView {
+    [top]
+    HeaderBar header_bar {}
+
+    content: Adw.ToastOverlay toasttools {
+      Box {
+        halign: fill;
+        valign: fill;
+        hexpand: true;
+        vexpand: true;
+        orientation: horizontal;
+        spacing: 16;
+        margin-top: 32;
+        margin-bottom: 32;
+        margin-start: 32;
+        margin-end: 32;
+
+        Frame dicef {
+          Box {
+            orientation: vertical;
+            spacing: 16;
+            margin-top: 16;
+            margin-bottom: 16;
+            margin-start: 16;
+            margin-end: 16;
+
+            Image dice {
+              name: "dice";
+              icon-name: "dicem";
+              pixel-size: 96;
+            }
+
+            Label dicet {
+              label: _("-");
+              styles ["title-1"]
+            }
+
+            Button roll {
+              label: _("Roll a dice !");
+              styles ["pill"]
+            }
+          }
+        }
+
+        Frame coinf {
+          Box {
+            orientation: vertical;
+            spacing: 16;
+            margin-top: 16;
+            margin-bottom: 16;
+            margin-start: 16;
+            margin-end: 16;
+
+            Image coin {
+              name: "coin";
+              icon-name: "coinm";
+              pixel-size: 96;
+            }
+
+            Label coint {
+              label: _("-");
+              styles ["title-1"]
+            }
+
+            Button flip {
+              label: _("Flip a coin !");
+              styles ["pill"]
+            }
+          }
+        }
+      }
+    };
+  }
+}

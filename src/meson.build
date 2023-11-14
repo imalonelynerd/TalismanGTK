@@ -4,7 +4,8 @@ gnome = import('gnome')
 
 blueprints = custom_target('blueprints',
   input: files(
-    'calculator.blp',
+    'calculator/calculator.blp',
+   'tools/tools.blp',
     'gtk/help-overlay.blp',
     'window.blp'
   ),
@@ -42,8 +43,8 @@ talisman_gtk_sources = [
   '__init__.py',
   'main.py',
   'window.py',
-  'duel.py',
-  'calculator.py',
+  'calculator/calculator.py',
+ 'tools/tools.py',
   'talutils.py'
 ]
 

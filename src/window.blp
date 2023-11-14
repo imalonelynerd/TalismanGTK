@@ -46,7 +46,6 @@ template $TalismanGtkWindow : Adw.ApplicationWindow {
               spacing: 24;
               margin-start: 48;
               margin-end: 48;
-              margin-top: 48;
               margin-bottom: 48;
               Box {
                 orientation: vertical;
@@ -182,7 +181,7 @@ template $TalismanGtkWindow : Adw.ApplicationWindow {
               hexpand: true;
               spacing: 16;
 
-              Button {
+              Button p1c {
                 Box {
                    orientation: vertical;
                    valign: center;
@@ -234,7 +233,7 @@ template $TalismanGtkWindow : Adw.ApplicationWindow {
                 }
               }
 
-              Button {
+              Button p2c {
                 Box {
                   orientation: vertical;
                   valign: center;
@@ -353,12 +352,12 @@ menu primary_menu {
   section {
     item {
       label: _("_Save preset...");
-      action: "app.save_pr";
+      action: "app.save_preset";
     }
 
     item {
       label: _("_Load preset...");
-      action: "app.load_pr";
+      action: "app.load_preset";
     }
 
     item {
