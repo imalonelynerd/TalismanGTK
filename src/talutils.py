@@ -92,7 +92,7 @@ class Tournament:
 class Calculator:
 
     def __init__(self, ope = 0):
-        assert 0 <= ope <= 3
+        assert 0 <= ope <= 4
 
         self.ope = 0
 
@@ -109,9 +109,12 @@ class Calculator:
                 return "*"
             case 3:
                 return "/"
+            case 4:
+                return "→"
+
 
     def setOpe(self, ope : int):
-        assert 0 <= ope <= 3
+        assert 0 <= ope <= 4
         self.ope = ope
 
     def calculate(self,value1 : int, value2 : int):
@@ -129,3 +132,5 @@ class Calculator:
                 if(value2 == 0):
                     return 0
                 return value1 // value2
+            case 4:
+                return value2

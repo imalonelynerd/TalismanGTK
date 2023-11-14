@@ -18,6 +18,7 @@ class CalculatorWindow(Adw.Window):
     rem = Gtk.Template.Child()
     mul = Gtk.Template.Child()
     div = Gtk.Template.Child()
+    equ = Gtk.Template.Child()
 
     b0 = Gtk.Template.Child()
     b1 = Gtk.Template.Child()
@@ -64,6 +65,7 @@ class CalculatorWindow(Adw.Window):
         self.rem.connect("clicked", lambda *_, val=1: self.setope(val))
         self.mul.connect("clicked", lambda *_, val=2: self.setope(val))
         self.div.connect("clicked", lambda *_, val=3: self.setope(val))
+        self.equ.connect("clicked", lambda *_, val=4: self.setope(val))
 
         self.before.set_text(str(self.player_info.getLP()))
 
@@ -102,7 +104,7 @@ class CalculatorWindow(Adw.Window):
         self.after.set_text(str(self.calc.calculate(self.player_info.getLP(), int(self.value.get_text()))))
 
     def setope(self, ope : int):
-        assert 0 <= ope <= 3
+        assert 0 <= ope <= 4
         self.calc.setOpe(ope)
         self.refresh()
 

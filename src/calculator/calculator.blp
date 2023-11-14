@@ -2,7 +2,7 @@ using Gtk 4.0;
 using Adw 1;
 
 template $CalculatorWindow : Adw.Window {
-  default-width: 400;
+  default-width: 350;
   default-height: 500;
   modal: true;
 
@@ -122,6 +122,16 @@ template $CalculatorWindow : Adw.Window {
               margin-top: 8;
               margin-bottom: 8;
               label: "/";
+            }
+            styles ["circular","title-3"]
+          }
+
+          Button equ {
+            hexpand: true;
+            Label {
+              margin-top: 8;
+              margin-bottom: 8;
+              label: "=";
             }
             styles ["circular","title-3"]
           }
