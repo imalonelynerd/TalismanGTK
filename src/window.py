@@ -23,6 +23,7 @@ from .talutils import *
 
 from gi.repository import Adw, Gtk, GLib, Gio
 
+
 @Gtk.Template(resource_path='/fr/imalonelynerd/Talisman/window.ui')
 class TalismanGtkWindow(Adw.ApplicationWindow):
     __gtype_name__ = 'TalismanGtkWindow'
@@ -63,15 +64,20 @@ class TalismanGtkWindow(Adw.ApplicationWindow):
     switchp = Gtk.Template.Child()
     dtype = Gtk.Template.Child()
 
+    toolsb = Gtk.Template.Child()
+    noteb = Gtk.Template.Child()
+    ff = Gtk.Template.Child()
+
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.timer_type.connect('notify',self.on_timer_change)
-        self.eraseb.connect('clicked',self.erase_inputs)
+        self.timer_type.connect('notify', self.on_timer_change)
+        self.eraseb.connect('clicked', self.erase_inputs)
         self.timer_type.set_selected(0)
         self.cnt.hide()
         self.playt.hide()
         self.addt.hide()
-        self.start.connect('clicked',self.start_duel)
+        self.start.connect('clicked', self.start_duel)
+        self.ff.connect('clicked', self.rd_p2)
 
     # LOAD PRESET
 
@@ -141,20 +147,20 @@ class TalismanGtkWindow(Adw.ApplicationWindow):
         except:
             return False
         if (rawdata.get("pl1name") == None
-            or rawdata.get("pl2name") == None
-            or rawdata.get("lp") == None
-            or rawdata.get("timer") == None
-            or rawdata["timer"].get("choice") == None
+                or rawdata.get("pl2name") == None
+                or rawdata.get("lp") == None
+                or rawdata.get("timer") == None
+                or rawdata["timer"].get("choice") == None
         ):
             return False
         choice = rawdata["timer"].get("choice")
         if (choice == "2"
-            and rawdata["timer"].get("countdown") == None
+                and rawdata["timer"].get("countdown") is None
         ):
             return False
         if (choice == "3"
-            and (rawdata["timer"].get("time") == None
-                or rawdata["timer"].get("bonus") == None)
+                and (rawdata["timer"].get("time") is None
+                     or rawdata["timer"].get("bonus") is None)
         ):
             return False
         return True
@@ -206,11 +212,11 @@ class TalismanGtkWindow(Adw.ApplicationWindow):
         text = json.dumps(preset)
         bytes = GLib.Bytes.new(text.encode('utf-8'))
         file.replace_contents_bytes_async(bytes,
-                                      None,
-                                      False,
-                                      Gio.FileCreateFlags.NONE,
-                                      None,
-                                      self.save_file_complete)
+                                          None,
+                                          False,
+                                          Gio.FileCreateFlags.NONE,
+                                          None,
+                                          self.save_file_complete)
 
     def save_file_complete(self, file, result):
         res = file.replace_contents_finish(result)
@@ -274,13 +280,12 @@ class TalismanGtkWindow(Adw.ApplicationWindow):
         self.p1lp.set_use_markup(True)
         self.p2lp.set_use_markup(True)
 
-
         self.p1time.set_label(str(self.tournament.p1.getTimer()))
         self.p2time.set_label(str(self.tournament.p2.getTimer()))
 
         print(self.tournament.settings.getTimerType())
 
-        if(self.tournament.settings.getTimerType() != 2):
+        if (self.tournament.settings.getTimerType() != 2):
             self.p1time.hide()
             self.p2time.hide()
             self.switchp.hide()
@@ -301,11 +306,36 @@ class TalismanGtkWindow(Adw.ApplicationWindow):
         self.send_toast(_("Inputs deleted successfully !"))
         return
 
-    def reset_duel(self, widget, _):
-        self.stack.set_visible_child_name("setup")
-        self.eraseb.show()
-        self.p1time.show()
-        self.p2time.show()
-        self.switchp.show()
+    def rd_p1(self, widget, _):
+        if self.stack.get_visible_child_name() != "setup":
+            self.reset_duel_pre()
         return
 
+    def rd_p2(self, widget):
+        self.reset_duel_pre()
+        return
+
+    def reset_duel_pre(self):
+        dialog = Adw.MessageDialog.new(
+            self,
+            _("Forfeit duel ?"),
+            _("You are about to forfeit this duel. Are you sure about that ?")
+        )
+        dialog.add_response("cancel", _("No..."))
+        dialog.add_response("ff", _("I'm sure"))
+        dialog.set_response_appearance("ff", Adw.ResponseAppearance.DESTRUCTIVE);
+        dialog.set_close_response("cancel")
+        dialog.connect('response', self.reset_duel)
+        Gtk.Window.present(dialog)
+
+    def reset_duel(self, widget, response):
+        if response == "ff":
+            self.stack.set_transition_type(2)
+            self.stack.set_visible_child_name("setup")
+            self.stack.set_transition_type(3)
+            self.eraseb.show()
+            self.p1time.show()
+            self.p2time.show()
+            self.switchp.show()
+            self.send_toast(_("Forfeited !"))
+        return

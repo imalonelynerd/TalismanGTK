@@ -20,7 +20,6 @@
 import sys
 import gi
 
-
 gi.require_version('Gtk', '4.0')
 gi.require_version('Adw', '1')
 
@@ -39,7 +38,6 @@ class TalismanGtkApplication(Adw.Application):
         self.create_action('save_pr', self.save_pr, ['<primary>s'])
         self.create_action('load_pr', self.load_pr, ['<primary>l'])
         self.create_action('reset', self.reset_pr, ['<primary>r'])
-        #self.create_action('preferences', self.on_preferences_action)
 
     def do_activate(self):
         """Called when the application is activated.
@@ -64,7 +62,7 @@ class TalismanGtkApplication(Adw.Application):
                                 support_url="https://github.com/lonelynerd/TalismanGTK/issues",
                                 website="https://github.com/lonelynerd/TalismanGTK",
                                 license_type=Gtk.License.APACHE_2_0
-        )
+                                )
         about.present()
 
     # def on_preferences_action(self, widget, _):
@@ -86,9 +84,6 @@ class TalismanGtkApplication(Adw.Application):
         if shortcuts:
             self.set_accels_for_action(f"app.{name}", shortcuts)
 
-    def test(self, widget, _):
-        print("uwu")
-
     def load_pr(self, widget, _):
         self.props.active_window.load_pr_w()
 
@@ -96,7 +91,8 @@ class TalismanGtkApplication(Adw.Application):
         self.props.active_window.save_pr_w()
 
     def reset_pr(self, widget, _):
-        self.props.active_window.reset_duel(self, widget)
+        self.props.active_window.rd_p1(self, widget)
+
 
 def main(version):
     """The application's entry point."""

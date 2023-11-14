@@ -1,5 +1,5 @@
 {
-    "app-id": "fr.imalonelynerd.Talisman",
+    "id": "fr.imalonelynerd.Talisman",
     "runtime": "org.gnome.Platform",
     "runtime-version": "master",
     "sdk": "org.gnome.Sdk",

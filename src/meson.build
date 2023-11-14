@@ -4,8 +4,9 @@ gnome = import('gnome')
 
 blueprints = custom_target('blueprints',
   input: files(
+    'calculator.blp',
     'gtk/help-overlay.blp',
-    'window.blp',
+    'window.blp'
   ),
   output: '.',
   command: [find_program('blueprint-compiler'), 'batch-compile', '@OUTPUT@', '@CURRENT_SOURCE_DIR@', '@INPUT@'],
@@ -23,6 +24,7 @@ python = import('python')
 
 conf = configuration_data()
 conf.set('PYTHON', python.find_installation('python3').path())
+conf.set('APPID', 'fr.imalonelynerd.Talisman')
 conf.set('VERSION', meson.project_version())
 conf.set('localedir', join_paths(get_option('prefix'), get_option('localedir')))
 conf.set('pkgdatadir', pkgdatadir)

@@ -12,6 +12,7 @@ template $TalismanGtkWindow : Adw.ApplicationWindow {
     orientation: vertical;
 
     HeaderBar header_bar {
+
       [end]
       Box {
         orientation: horizontal;
@@ -324,7 +325,7 @@ template $TalismanGtkWindow : Adw.ApplicationWindow {
                   styles ["pill"]
                 }
 
-                Button {
+                Button noteb {
                   Adw.ButtonContent {
                     label: "Notebook";
                     icon-name: "accessories-text-editor-symbolic";
@@ -332,10 +333,10 @@ template $TalismanGtkWindow : Adw.ApplicationWindow {
                   styles ["pill"]
                 }
 
-                Button {
+                Button ff {
                   Adw.ButtonContent {
                     label: "Forfeit";
-                    icon-name: "hand-middle-finger-symbolic";
+                    icon-name: "background-app-ghost-symbolic";
                   }
                   styles ["pill", "destructive-action"]
                 }

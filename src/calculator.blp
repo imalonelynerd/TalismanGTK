@@ -1,15 +1,144 @@
 using Gtk 4.0;
 using Adw 1;
 
-template CalculatorWindow: Adw.Window {
+template $CalculatorWindow : Adw.Window {
   default-width: 350;
   default-height: 600;
   modal: true;
 
-  Adw.ToolbarView main_toolbar_view {
+  Adw.ToolbarView {
     [top]
-    HeaderBar header_bar {}
+    HeaderBar header_bar {
+    }
 
-    content: Adw.ToastOverlay {
-    };
+    content: Adw.ToastOverlay toastcalc {
+      Box {
+        orientation: vertical;
+
+        Frame {
+          Box {
+            orientation: horizontal;
+            spacing: 16;
+
+            Label before {
+              label: "8000";
+            }
+
+            Label ope {
+              label: "-";
+            }
+
+            Label value {
+              label: "4000";
+            }
+
+            Label {
+              label: "=";
+            }
+
+            Label after {
+              label: "4000";
+            }
+        }
+      }
+    }
+
+    Grid {
+      Button b1 {
+        layout {
+          row: 0;
+          column: 0;
+        }
+        label: "1";
+      }
+
+      Button b2 {
+        layout {
+          row: 1;
+          column: 0;
+        }
+        label: "2";
+      }
+
+      Button b3 {
+        layout {
+          row: 2;
+          column: 0;
+        }
+        label: "3";
+      }
+
+      Button b4 {
+        layout {
+          row: 0;
+          column: 1;
+        }
+        label: "4";
+      }
+
+      Button b5 {
+        layout {
+          row: 1;
+          column: 1;
+        }
+        label: "5";
+      }
+
+      Button b6 {
+        layout {
+          row: 1;
+          column: 2;
+        }
+        label: "6";
+      }
+
+      Button b7 {
+        layout {
+          row: 2;
+          column: 0;
+        }
+        label: "7";
+      }
+
+      Button b8 {
+        layout {
+          row: 2;
+          column: 1;
+        }
+        label: "8";
+      }
+
+      Button b9 {
+        layout {
+          row: 2;
+          column: 2;
+        }
+        label: "9";
+      }
+
+      Button br {
+        layout {
+          row: 3;
+          column: 0;
+        }
+        label: "Reset";
+      }
+
+      Button b0 {
+        layout {
+          row: 3;
+          column: 1;
+        }
+        label: "0";
+      }
+
+      Button be {
+        layout {
+          row: 3;
+          column: 2;
+        }
+        label: "Enter";
+      }
+    }
+  };
 }
